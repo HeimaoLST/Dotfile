@@ -1,0 +1,63 @@
+# Ghostty config migrated from Alacritty
+
+#theme
+theme = Monokai Pro
+# Font
+font-family = Ioskeley Mono
+font-size = 16
+
+# Window
+window-decoration = false
+window-padding-x = 12
+window-padding-y = 12
+background-opacity = 1.0
+
+# Scrolling
+scrollback-limit = 3023
+
+# Cursor
+cursor-style = block
+cursor-style-blink = true
+cursor-color = #9dcbfb
+
+# Shell
+command = /bin/zsh
+
+# Mouse
+mouse-hide-while-typing = true
+
+# Theme colors (Dank theme)
+# background = #101418
+# foreground = #e0e2e8
+#
+# # Normal colors
+# palette = 0=#101418
+# palette = 1=#e64c48
+# palette = 2=#71d66e
+# palette = 3=#dbd07b
+# palette = 4=#5186bf
+# palette = 5=#839fbc
+# palette = 6=#9dcbfb
+# palette = 7=#abb2bf
+#
+# # Bright colors
+# palette = 8=#5c6370
+# palette = 9=#e05f60
+# palette = 10=#88e086
+# palette = 11=#e8df97
+# palette = 12=#a7d9ff
+# palette = 13=#45809f
+# palette = 14=#617aa8
+# palette = 15=#ffffff
+#
+# # Selection colors
+# selection-foreground = #e0e2e8
+# selection-background = #124a73
+#
+# Key bindings
+keybind = ctrl+shift+c=copy_to_clipboard
+keybind = ctrl+shift+v=paste_from_clipboard
+keybind = ctrl+shift+n=new_window
+keybind = ctrl+plus=increase_font_size:1
+keybind = ctrl+minus=decrease_font_size:1
+keybind = ctrl+0=reset_font_size

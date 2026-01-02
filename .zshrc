@@ -109,8 +109,7 @@ source $ZSH/oh-my-zsh.sh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 proxy() {
-    export http_proxy="http://127.0.0.1:7897"
-   
+    export http_proxy="http://127.0.0.1:7897"  
     export https_proxy="http://127.0.0.1:7897"
     echo "Proxy set to $http_proxy"
 }
@@ -122,8 +121,13 @@ unproxy() {
 }
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 export PATH="/home/heimaodev/.local/bin:$PATH"
+# 启动 keychain 并加载你常用的私钥
+#eval $(keychain --eval --agents ssh id_ed25519)
+
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 alias config='/usr/bin/git --git-dir=/home/heimaodev/.cfg/ --work-tree=/home/heimaodev'
+alias cr='cargo run'
+export XDG_DATA_DIRS="/var/lib/flatpak/exports/share:$HOME/.local/share/flatpak/exports/share:${XDG_DATA_DIRS:-/usr/local/share:/usr/share}"

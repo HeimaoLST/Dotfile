@@ -128,6 +128,6 @@ export PATH="/home/heimaodev/.local/bin:$PATH"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-alias config='/usr/bin/git --git-dir=/home/heimaodev/.cfg/ --work-tree=/home/heimaodev'
+alias dot='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
 alias cr='cargo run'
 export XDG_DATA_DIRS="/var/lib/flatpak/exports/share:$HOME/.local/share/flatpak/exports/share:${XDG_DATA_DIRS:-/usr/local/share:/usr/share}"

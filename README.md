@@ -15,6 +15,7 @@
 | `.config/btop/` | btop 系统监视器配置 |
 | `.config/fcitx5/` | Fcitx5 输入法配置 |
 | `.config/niri/` | Niri 窗口管理器配置 |
+| `.config/nvim/` | LazyVim 配置（Rose Pine 自动日夜主题、clangd/JSON/TOML 支持） |
 
 ## 新机器首次设置
 
@@ -91,11 +92,18 @@ dot pull
 - **Zsh** + [Oh My Zsh](https://ohmyz.sh/) + [Powerlevel10k](https://github.com/romkatv/powerlevel10k)
 - **Tmux** ≥ 3.0（支持真彩色）
 - **Ghostty** 或 **Alacritty**（任选其一作为终端）
+- **Neovim** ≥ 0.11 + Git（首次启动会自动安装 LazyVim 插件）
 - 可选：**btop**、**fcitx5**、**niri**
+
+Linux 下的 Neovim 日夜主题切换依赖桌面提供
+`org.freedesktop.appearance.color-scheme`。GNOME、KDE 可直接使用；Niri
+等窗口管理器可通过 `darkman` 配合 `xdg-desktop-portal` 提供，并需要
+`dbus-send` 可用。无法检测外观时会回退到深色主题。
 
 ## 主题说明
 
 - **Tmux**：Rose Pine Dawn（粉紫浅色系），状态栏在底部
+- **Neovim**：浅色模式使用 Rose Pine Dawn，深色模式使用 Rose Pine Moon
 - **Shell**：Powerlevel10k（配置见 `.p10k.zsh`）
 
 ---

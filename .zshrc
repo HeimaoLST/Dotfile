@@ -8,15 +8,14 @@ fi
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
-# Path to your oh-my-zsh installation.
+# Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
+# load a random theme each time Oh My Zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="powerlevel10k/powerlevel10k"
-
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in $ZSH/themes/
@@ -77,8 +76,13 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
-
+plugins=(
+  git
+  zsh-autosuggestions  # 命令自动建议
+  zsh-syntax-highlighting  # 语法高亮
+  extract  # 智能解压
+  web-search  # 快速搜索
+)
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -92,15 +96,18 @@ source $ZSH/oh-my-zsh.sh
 # if [[ -n $SSH_CONNECTION ]]; then
 #   export EDITOR='vim'
 # else
-#   export EDITOR='mvim'
+#   export EDITOR='nvim'
 # fi
 
 # Compilation flags
-# export ARCHFLAGS="-arch x86_64"
+# export ARCHFLAGS="-arch $(uname -m)"
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# Set personal aliases, overriding those provided by Oh My Zsh libs,
+# plugins, and themes. Aliases can be placed here, though Oh My Zsh
+# users are encouraged to define aliases within a top-level file in
+# the $ZSH_CUSTOM folder, with .zsh extension. Examples:
+# - $ZSH_CUSTOM/aliases.zsh
+# - $ZSH_CUSTOM/macos.zsh
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
@@ -108,26 +115,46 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-proxy() {
-    export http_proxy="http://127.0.0.1:7897"  
-    export https_proxy="http://127.0.0.1:7897"
-    echo "Proxy set to $http_proxy"
-}
-
-unproxy() {
-    unset http_proxy
-    unset https_proxy
-    echo "Proxy unset"
-}
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-export PATH="/home/heimaodev/.local/bin:$PATH"
-# 启动 keychain 并加载你常用的私钥
-#eval $(keychain --eval --agents ssh id_ed25519)
+# 开启代理 (Start) - 同时设置大写和小写变量
+unalias proxy 2>/dev/null
+unalias unproxy 2>/dev/null
+proxy() {
+  export https_proxy="http://127.0.0.1:7897" http_proxy="http://127.0.0.1:7897"
+  export HTTPS_PROXY="http://127.0.0.1:7897" HTTP_PROXY="http://127.0.0.1:7897"
+  export no_proxy="localhost,127.0.0.1" NO_PROXY="localhost,127.0.0.1"
+  unset all_proxy ALL_PROXY
+  echo "Proxy: ON (HTTP 127.0.0.1:7897)"
+}
 
-
+# 关闭代理 (Close)
+unproxy() {
+  unset https_proxy http_proxy all_proxy HTTPS_PROXY HTTP_PROXY ALL_PROXY no_proxy NO_PROXY
+  echo "Proxy: OFF"
+}
+export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$PATH:$HOME/development/flutter/bin"
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
+alias claude-mem='bun "/Users/tech01/.claude/plugins/marketplaces/thedotmack/plugin/scripts/worker-service.cjs"'
+# opencode
+export PATH=/Users/tech01/.opencode/bin:$PATH
+
+# JDK 17 for Gradle/Kotlin builds
+export JAVA_HOME=/opt/homebrew/Cellar/openjdk@17/17.0.15/libexec/openjdk.jdk/Contents/Home
+
+# bun completions
+[ -s "/Users/tech01/.bun/_bun" ] && source "/Users/tech01/.bun/_bun"
+# Tmux attach alias
+alias ta='tmux a -t'
+alias tn='tmux new -s'
+alias cc='gcc'
+export PATH="$PATH:$HOME/Workplace/agent-bridge/cli"
+
+export PATH="$PATH:$HOME/go/bin"
+
 alias dot='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
 alias cr='cargo run'
 export XDG_DATA_DIRS="/var/lib/flatpak/exports/share:$HOME/.local/share/flatpak/exports/share:${XDG_DATA_DIRS:-/usr/local/share:/usr/share}"
@@ -146,3 +173,6 @@ y() {
 	fi
 	rm -f -- "$tmp"
 }
+
+# Machine-specific aliases and credentials; intentionally untracked.
+[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local

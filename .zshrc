@@ -131,3 +131,18 @@ export NVM_DIR="$HOME/.nvm"
 alias dot='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
 alias cr='cargo run'
 export XDG_DATA_DIRS="/var/lib/flatpak/exports/share:$HOME/.local/share/flatpak/exports/share:${XDG_DATA_DIRS:-/usr/local/share:/usr/share}"
+export TOKENFLUX_API_KEY="sk-96b1ceef1d2f8f638e3a6e9877b304965e6ee26fc5a12d14618c63d17c45cce7"
+export TOKENFLUX_BASE_URL="https://token.memoh.net/v1"
+
+# zoxide：智能 cd，yazi 的 `z` 跳转也依赖它
+command -v zoxide &>/dev/null && eval "$(zoxide init zsh)"
+
+# yazi：用 `y` 启动，退出时把当前目录带回 shell（cd 到 yazi 里最后停留的目录）
+y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		builtin cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}
